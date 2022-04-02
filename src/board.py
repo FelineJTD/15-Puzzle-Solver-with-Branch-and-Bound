@@ -1,34 +1,33 @@
-from block import Block
-
 class Board:
-  def __init__(self, blocks, steps, isInteger=True):
-    self.prevStep = None
+  def __init__(self, blocks, steps):
     self.steps = steps
-    if (isInteger):
-      self.blocks = []
-      for i in range(16):
-        self.blocks.append(Block(blocks[i]))
-    else:
-      self.blocks = blocks
+    self.blocks = blocks
+    self.prevStep = None
     self.misplacedBlocks = self.countMisplacedBlocks()
 
   def copy(self):
-    return Board(self.blocks[:], self.steps+1, False)
+    return Board(self.blocks[:], self.steps+1)
 
   def print(self):
     for i in range(4):
       for j in range(4):
-        self.blocks[i*4+j].print()
+        if (self.blocks[i*4+j] < 10):
+          print(f"0{self.blocks[i*4+j]}", end=" ")
+        elif (self.blocks[i*4+j] == 16):
+          print("--", end=" ")
+        else:
+          print(self.blocks[i*4+j], end=" ")
       print()
     print()
 
   def emptyBlock(self):
     for i in range(16):
-      if self.blocks[i].value == 16:
+      if self.blocks[i] == 16:
         return i
 
   def swap(self, i, j):
     result = self.copy()
+    result.prevStep = self
     temp = result.blocks[i]
     result.blocks[i] = result.blocks[j]
     result.blocks[j] = temp
@@ -36,22 +35,30 @@ class Board:
     return result
 
   def up(self):
-    return self.swap(self.emptyBlock()-4, self.emptyBlock())
+    up = self.swap(self.emptyBlock()-4, self.emptyBlock())
+    up.prevStep = self
+    return up
 
   def down(self):
-    return self.swap(self.emptyBlock()+4, self.emptyBlock())
+    down = self.swap(self.emptyBlock()+4, self.emptyBlock())
+    down.prevStep = self
+    return down
 
   def left(self):
-    return self.swap(self.emptyBlock()-1, self.emptyBlock())
+    left = self.swap(self.emptyBlock()-1, self.emptyBlock())
+    left.prevStep = self
+    return left
 
   def right(self):
-    return self.swap(self.emptyBlock()+1, self.emptyBlock())
+    right = self.swap(self.emptyBlock()+1, self.emptyBlock())
+    right.prevStep = self
+    return right
 
   def countMisplacedBlocks(self):
   # A function that returns the number of blocks that are misplaced
     misplaced = 0
     for i in range(16):
-      if self.blocks[i].value != 16 and self.blocks[i].value != i+1:
+      if self.blocks[i] != 16 and self.blocks[i] != i+1:
         misplaced += 1
     return misplaced
   

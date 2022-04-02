@@ -1,5 +1,4 @@
 from board import Board
-from block import Block
 
 def read(fileName):
   board = []
@@ -12,8 +11,8 @@ def read(fileName):
     for j in range(4):
       curr = data[i][j]
       if curr == "-":
-        board.append(Block(16))
+        board.append(16)
       else:
-        board.append(Block(int(curr)))
+        board.append(int(curr))
   
-  return Board(board, 0, False)
+  return Board(board, 0)

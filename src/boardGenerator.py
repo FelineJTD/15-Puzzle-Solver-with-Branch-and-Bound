@@ -1,5 +1,4 @@
 import random
-from block import Block
 from board import Board
 
 def randomBoard():
@@ -7,7 +6,7 @@ def randomBoard():
   # The board is represented as an array of strings
   blocks = [] # Initiating the board
   for i in range(1,17):
-    blocks.append(Block(i))
+    blocks.append(i)
   random.shuffle(blocks) # Shuffling the board
-  board = Board(blocks, 0, False) # Creating a Board object
+  board = Board(blocks, 0) # Creating a Board object
   return board

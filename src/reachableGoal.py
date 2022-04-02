@@ -5,10 +5,10 @@ def kurang_i(board):
   board_copy = board.blocks[:] # Make a copy of the board
   kurang = {} # Initiate the dictionary
   for i in range(16):
-    curr = (board_copy[i].value)
+    curr = (board_copy[i])
     kurang[curr] = 0
     for j in range(i+1, 16):
-      if curr > (board_copy[j].value):
+      if curr > (board_copy[j]):
         kurang[curr] += 1
   return kurang
 
