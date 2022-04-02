@@ -1,14 +1,16 @@
 from queue import PriorityQueue
 from board import Board
+from time import sleep
 
 def branchAndBound(start):
   liveNodes = PriorityQueue()
   liveNodes.put((start.cost(), start))
-  now = start
+  curr = start
 
-  while not liveNodes.empty() and not now.isGoal():
+  while not liveNodes.empty() and not curr.isGoal():
     now = liveNodes.get()
     curr = now[1]
+    sleep(1)
     curr.print()
 
     try:
@@ -32,5 +34,8 @@ def branchAndBound(start):
     except IndexError:
       pass
 
-board = Board([1,2,3,4,5,6,7,8,9,10,11,12,13,14,16,15], 0)
-branchAndBound(board)
+  print("Berhasil diselesaikan.")
+  print(curr.steps)
+
+# board = Board([1,2,3,4,5,6,7,8,9,10,11,12,13,14,16,15], 0)
+# branchAndBound(board)

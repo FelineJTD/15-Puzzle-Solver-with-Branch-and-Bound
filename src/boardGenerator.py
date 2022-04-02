@@ -9,5 +9,5 @@ def randomBoard():
   for i in range(1,17):
     blocks.append(Block(i))
   random.shuffle(blocks) # Shuffling the board
-  board = Board(blocks, False) # Creating a Board object
+  board = Board(blocks, 0, False) # Creating a Board object
   return board

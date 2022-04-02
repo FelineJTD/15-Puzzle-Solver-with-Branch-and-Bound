@@ -2,6 +2,7 @@ from block import Block
 
 class Board:
   def __init__(self, blocks, steps, isInteger=True):
+    self.prevStep = None
     self.steps = steps
     if (isInteger):
       self.blocks = []
@@ -9,6 +10,7 @@ class Board:
         self.blocks.append(Block(blocks[i]))
     else:
       self.blocks = blocks
+    self.misplacedBlocks = self.countMisplacedBlocks()
 
   def copy(self):
     return Board(self.blocks[:], self.steps+1, False)
@@ -30,6 +32,7 @@ class Board:
     temp = result.blocks[i]
     result.blocks[i] = result.blocks[j]
     result.blocks[j] = temp
+    result.misplacedBlocks = result.countMisplacedBlocks()
     return result
 
   def up(self):
@@ -53,7 +56,13 @@ class Board:
     return misplaced
   
   def isGoal(self):
-    return self.countMisplacedBlocks() == 0
+    return self.misplacedBlocks == 0
 
   def cost(self):
-    return self.steps+self.countMisplacedBlocks()
+    return self.steps+self.misplacedBlocks
+
+  def __lt__(self, other):
+    if(self.steps<other.steps):
+      return self
+    else:
+      return other
