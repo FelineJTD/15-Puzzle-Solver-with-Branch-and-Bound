@@ -8,7 +8,7 @@ class Board:
   #   misplacedBlocks: an integer representing the number of misplaced blocks on the board
 
   # Methods:
-  #   copy: a function that returns a copy of the board
+  #   copy: a function that returns a copy of the board and adds one step
   #   print: a function that prints the board
   #   emptyBlock: a function that returns the index of the empty block on the board
 
