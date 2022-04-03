@@ -3,10 +3,7 @@ from board import Board
 
 def randomBoard():
   # A function that returns a random board of 15-puzzle
-  # The board is represented as an array of strings
-  blocks = [] # Initiating the board
-  for i in range(1,17):
-    blocks.append(i)
-  random.shuffle(blocks) # Shuffling the board
+  blocks = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16] # Initiating the blocks
+  random.shuffle(blocks) # Shuffling the blocks
   board = Board(blocks, 0) # Creating a Board object
   return board

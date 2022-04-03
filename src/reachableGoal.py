@@ -1,8 +1,11 @@
+from time import perf_counter
+
 def kurang_i(board):
   # A function that returns the number of blocks that are misplaced
   # The board is represented as an array of strings
   # The function will return a dictionary
-  board_copy = board.blocks[:] # Make a copy of the board
+  timeStart = perf_counter() # Start the timer
+  board_copy = board.blocks[:] # Make a copy of the board blocks configuration
   kurang = {} # Initiate the dictionary
   for i in range(16):
     curr = (board_copy[i])
@@ -10,7 +13,8 @@ def kurang_i(board):
     for j in range(i+1, 16):
       if curr > (board_copy[j]):
         kurang[curr] += 1
-  return kurang
+  timeEnd = perf_counter() # End the timer
+  return timeEnd-timeStart, kurang
 
 def X(board):
   # Function X(board) receives a board
