@@ -15,7 +15,7 @@ def read(fileName):
     data[i] = data[i].split(" ")
     for j in range(4):
       curr = data[i][j]
-      if curr == "-": # Empty block is converted to 16
+      if curr == "-" or curr == "0" or curr == "--": # Empty block is converted to 16
         board.append(16)
       else:
         board.append(int(curr))
