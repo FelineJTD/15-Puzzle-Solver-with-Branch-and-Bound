@@ -37,9 +37,9 @@ To run the program with a randomly generated board:
 ```
 python3 src/main.py
 ```
-!!! The algorithm of this program is not suited for boards that require a lot of nodes to be raised, attempting to run the program with a randomly-generated board may result in the program running for a very long time.  
+_!!! The algorithm of this program is not suited for boards that require a lot of nodes to be raised, attempting to run the program with a randomly-generated board may result in the program running for a very long time._  
 
-It is recommended to use one of the given test cases in the test folder. Use this command to try it out:
+_It is recommended to use one of the given test cases in the test folder. Use this command to try it out:_
 ```
 python3 src/main.py ./test/tc1.txt
 ```
