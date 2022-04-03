@@ -3,13 +3,17 @@ from reader import read
 from reachableGoal import *
 from branchAndBound import branchAndBound
 from board import Board
+import sys
 
-# Generate initial board
-#board = randomBoard()
-#board = Board([1,2,3,4,5,6,16,8,9,10,7,11,13,14,15,12], 0)
-#board = Board([1,2,3,4,5,6,7,8,9,10,11,12,13,14,16,15], 0)
-
-board = read("../test/test10.txt")
+if (len(sys.argv) > 1):
+  fileName = sys.argv[1]
+  try:
+    board = read(fileName)
+  except FileNotFoundError:
+    print("File tidak ditemukan.")
+    sys.exit(1)
+else:
+  board = randomBoard()
 
 # Output initial board
 print("Susunan awal:")
@@ -27,4 +31,6 @@ print(f"Nilai sigma Kurang(i) + X: {sums}")
 if not reachableGoal(sums):
   print("Persoalan tidak dapat diselesaikan.")
 else:
-  branchAndBound(board)
+  timeElapsedBnB, nodeCount = branchAndBound(board)
+  print(f"Waktu yang diperlukan: {timeElapsedBnB:0.4f} detik")
+  print(f"Jumlah simpul yang dibangkitkan: {nodeCount}")

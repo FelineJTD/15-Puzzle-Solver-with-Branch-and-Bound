@@ -1,8 +1,9 @@
 from queue import PriorityQueue
 from board import Board
-from time import sleep
+from time import sleep, perf_counter
 
 def branchAndBound(start):
+  timeStart = perf_counter()
   nodeCount = 0
   liveNodes = PriorityQueue()
   liveNodes.put((start.cost(), start))
@@ -14,55 +15,46 @@ def branchAndBound(start):
     curr = now[1]
     checked[str(curr.blocks)] = True
 
-    try:
-      up = curr.up()
-      if (str(up.blocks) not in checked):
-        liveNodes.put((up.cost(), up))
-        checked[str(up.blocks)] = True
-        nodeCount += 1
-    except IndexError:
-      pass
+    up = curr.up()
+    if (up is not None) and (str(up.blocks) not in checked):
+      liveNodes.put((up.cost(), up))
+      checked[str(up.blocks)] = True
+      nodeCount += 1
 
-    try:
-      down = curr.down()
-      if (str(down.blocks) not in checked):
-        liveNodes.put((down.cost(), down))
-        checked[str(down.blocks)] = True
-        nodeCount += 1
-    except IndexError:
-      pass
+    down = curr.down()
+    if (down is not None) and (str(down.blocks) not in checked):
+      liveNodes.put((down.cost(), down))
+      checked[str(down.blocks)] = True
+      nodeCount += 1
       
-    try:
-      left = curr.left()
-      if (str(left.blocks) not in checked):
-        liveNodes.put((left.cost(), left))
-        checked[str(left.blocks)] = True
-        nodeCount += 1
-    except IndexError:
-      pass
+    left = curr.left()
+    if (left is not None) and (str(left.blocks) not in checked):
+      liveNodes.put((left.cost(), left))
+      checked[str(left.blocks)] = True
+      nodeCount += 1
 
-    try:
-      right = curr.right()
-      if (str(right.blocks) not in checked):
-        liveNodes.put((right.cost(), right))
-        checked[str(right.blocks)] = True
-        nodeCount += 1
-    except IndexError:
-      pass
-
-  print("Berhasil diselesaikan.")
-  stepsToSuccess = []
-  currStep = curr
+    right = curr.right()
+    if (right is not None) and (str(right.blocks) not in checked):
+      liveNodes.put((right.cost(), right))
+      checked[str(right.blocks)] = True
+      nodeCount += 1
   
-  while (currStep.prevStep is not None):
-    stepsToSuccess.append(currStep)
-    currStep = currStep.prevStep
-  for i in range(len(stepsToSuccess)-1, -1, -1):
-    print(f"Langkah ke-{len(stepsToSuccess)-i}:")
-    stepsToSuccess[i].print()
-  print(f"Langkah yang diperlukan: {curr.steps}")
-  print(f"Waktu yang diperlukan: detik")
-  print(f"Jumlah simpul yang dibangkitkan: {len(stepsToSuccess)}")
+  timeEnd = perf_counter()
+  if (curr.steps == 0):
+    print("Loh puzzle-nya sudah selesai. >:(\n")
+  else:
+    print("Berhasil diselesaikan.")
+    stepsToSuccess = []
+    currStep = curr
+
+    while (currStep.prevStep is not None):
+      stepsToSuccess.append(currStep)
+      currStep = currStep.prevStep
+    for i in range(len(stepsToSuccess)-1, -1, -1):
+      print(f"Langkah ke-{len(stepsToSuccess)-i}:")
+      stepsToSuccess[i].print()
+    print(f"Langkah yang diperlukan: {curr.steps}")
+  return (timeEnd-timeStart, nodeCount)
 
 # board = Board([1,2,3,4,5,6,7,8,9,10,11,12,13,14,16,15], 0)
 # branchAndBound(board)

@@ -35,24 +35,32 @@ class Board:
     return result
 
   def up(self):
-    up = self.swap(self.emptyBlock()-4, self.emptyBlock())
-    up.prevStep = self
-    return up
+    if self.emptyBlock() < 4:
+      return None
+    else:
+      up = self.swap(self.emptyBlock()-4, self.emptyBlock())
+      return up
 
   def down(self):
-    down = self.swap(self.emptyBlock()+4, self.emptyBlock())
-    down.prevStep = self
-    return down
+    if self.emptyBlock() > 11:
+      return None
+    else:
+      down = self.swap(self.emptyBlock()+4, self.emptyBlock())
+      return down
 
   def left(self):
-    left = self.swap(self.emptyBlock()-1, self.emptyBlock())
-    left.prevStep = self
-    return left
+    if self.emptyBlock() % 4 == 0:
+      return None
+    else:
+      left = self.swap(self.emptyBlock()-1, self.emptyBlock())
+      return left
 
   def right(self):
-    right = self.swap(self.emptyBlock()+1, self.emptyBlock())
-    right.prevStep = self
-    return right
+    if self.emptyBlock() % 4 == 3:
+      return None
+    else:
+      right = self.swap(self.emptyBlock()+1, self.emptyBlock())
+      return right
 
   def countMisplacedBlocks(self):
   # A function that returns the number of blocks that are misplaced
